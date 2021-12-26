@@ -28,13 +28,26 @@ dealer = []
 
 def draw(user):
     user.append(random.choice(cards))
-    return
 
 def sum(hand):
     hand_total = 0
     for card in hand:
         hand_total += card
     return hand_total
+
+def lose_checker(player_score, dealer_score):
+    if player_score > 21:
+        print(f"You lose, your score is {player_score}.")
+    elif dealer_score > 21:
+        print(f"You win, the dealer has a score of {dealer_score}.")
+
+def win_checker(player_score, dealer_score):
+    if player_score == dealer_score:
+        print(f"It's a tie, both scores are equal.")
+    elif dealer_score > player_score:
+        print(f"You lose, your score is {player_score} and the dealer has {dealer_score}.")
+    elif player_score > dealer_score:
+        print(f"You win, your score is {dealer_score} and the dealer has {player_score}.")
 
 def game_loop():
     if len(player) == 0 and len(dealer) == 0:
@@ -43,6 +56,7 @@ def game_loop():
         draw(dealer)
         draw(dealer)
         print(f"The dealer has drawn a {dealer[0]} and the player has drawn a {player[0]} and {player[1]}.")
+        print(f"The player's total is {sum(player)}.")
         game_loop()
     else:
         pass_turn = False
@@ -53,13 +67,15 @@ def game_loop():
                     draw(dealer)
                 draw(player)
                 print(f"You drew a {len(player) - 1}, your new total is {sum(player)}.")
+                lose_checker(sum(player), sum(dealer))
             else:
                 if sum(dealer) < 16:
                     draw(dealer)
+                    lose_checker(sum(player), sum(dealer))
+                win_checker(sum(player), sum(dealer))
                 pass_turn = True
-        print(f"Dealer's total: {sum(dealer)} Player's total: {sum(player)}")
-
         
+
 print("The dealer shuffles the deck and distributes the cards.")
 game_loop()
 
