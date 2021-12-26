@@ -1,4 +1,5 @@
 from art import logo
+import random
 
 ############### Blackjack Project #####################
 
@@ -18,6 +19,44 @@ from art import logo
 ## The cards in the list have equal probability of being drawn.
 ## Cards are not removed from the deck as they are drawn.
 ## The computer is the dealer.
+
+############### Blackjack game source code #####################
+
+cards = [11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+player = []
+dealer = []
+
+def draw(user):
+    user.append(random.choice(cards))
+    return
+
+def sum(hand):
+    hand_total = 0
+    for card in hand:
+        hand_total += card
+    return hand_total
+
+def game_loop():
+    print("The dealer shuffles the deck and distributes the cards.")
+    if len(player) == 0 and len(dealer) == 0:
+        draw(player)
+        draw(dealer)
+        print(f"The dealer has drawn a {dealer[0]} and the player has drawn a {player[0]}.")
+        game_loop()
+    else:
+        pass_turn = False
+        while pass_turn == False:
+            hit_me = input("Would you like to draw another card? [y] or [n]: ")
+        
+
+game_loop()
+
+
+
+
+
+
+
 
 ##################### Hints #####################
 
