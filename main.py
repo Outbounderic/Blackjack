@@ -37,18 +37,30 @@ def sum(hand):
     return hand_total
 
 def game_loop():
-    print("The dealer shuffles the deck and distributes the cards.")
     if len(player) == 0 and len(dealer) == 0:
         draw(player)
+        draw(player)
         draw(dealer)
-        print(f"The dealer has drawn a {dealer[0]} and the player has drawn a {player[0]}.")
+        draw(dealer)
+        print(f"The dealer has drawn a {dealer[0]} and the player has drawn a {player[0]} and {player[1]}.")
         game_loop()
     else:
         pass_turn = False
         while pass_turn == False:
             hit_me = input("Would you like to draw another card? [y] or [n]: ")
-        
+            if hit_me == "y":
+                if sum(dealer) < 16:
+                    draw(dealer)
+                draw(player)
+                print(f"You drew a {len(player) - 1}, your new total is {sum(player)}.")
+            else:
+                if sum(dealer) < 16:
+                    draw(dealer)
+                pass_turn = True
+        print(f"Dealer's total: {sum(dealer)} Player's total: {sum(player)}")
 
+        
+print("The dealer shuffles the deck and distributes the cards.")
 game_loop()
 
 
